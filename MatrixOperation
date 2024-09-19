@@ -1,0 +1,70 @@
+import java.util.Scanner;
+import java.util.Random;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner s = new Scanner(System.in);
+        System.out.print("Enter number of rows: ");
+        int r = s.nextInt();
+
+        System.out.print("Enter number of columns: ");
+        int c = s.nextInt();
+
+        // Array creation
+        double[][] mat1 = new double[r][c];
+        double[][] mat2 = new double[r][c];
+        double[][] addmat = new double[r][c];
+        double[][] submat = new double[r][c];
+        double[][] mulmat = new double[r][c];
+
+        // Function call to populate matrix
+        fillmatrix(mat1, r, c);
+        fillmatrix(mat2, r, c);
+
+        // Arithmetic operations
+        // Addition
+        for (int i = 0; i < r; i++) {
+            for (int j = 0; j < c; j++) {
+                addmat[i][j] = mat1[i][j] + mat2[i][j];
+            }
+        }
+        // Subtraction
+        for (int i = 0; i < r; i++) {
+            for (int j = 0; j < c; j++) {
+                submat[i][j] = mat1[i][j] - mat2[i][j];
+            }
+        }
+        // Multiplication (element-wise)
+        for (int i = 0; i < r; i++) {
+            for (int j = 0; j < c; j++) {
+                mulmat[i][j] = mat1[i][j] * mat2[i][j];
+            }
+        }
+
+        // Printing matrices
+        System.out.println("Addition Matrix:");
+        printmat(addmat, r, c);
+        System.out.println("Subtraction Matrix:");
+        printmat(submat, r, c);
+        System.out.println("Multiplication Matrix:");
+        printmat(mulmat, r, c);
+    }
+
+    private static void fillmatrix(double[][] matrix, int r, int c) {
+        Random rand = new Random();
+        for (int i = 0; i < r; i++) {
+            for (int j = 0; j < c; j++) {
+                matrix[i][j] = rand.nextDouble();
+            }
+        }
+    }
+
+    private static void printmat(double[][] matrix, int r, int c) {
+        for (int i = 0; i < r; i++) {
+            for (int j = 0; j < c; j++) {
+                System.out.print(matrix[i][j] + " ");
+            }
+            System.out.println();
+        }
+    }
+}
