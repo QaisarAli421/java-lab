@@ -1,0 +1,30 @@
+2. (1.)
+import java.math.BigInteger;
+import java.util.Scanner;
+
+public class Main {
+
+    // Method to compute factorial using BigInteger
+    public static BigInteger factorial(BigInteger number) {
+        BigInteger result = new BigInteger("1");  // Initialize result as 1
+
+        // Loop to multiply numbers from 1 to the given number
+        for (BigInteger i = BigInteger.ONE; i.compareTo(number) <= 0; i = i.add(BigInteger.ONE)) {
+            result = result.multiply(i);
+        }
+
+        return result;
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        // Take input from the user as BigInteger
+        System.out.print("Enter a number to compute its factorial: ");
+        BigInteger number = scanner.nextBigInteger();
+
+        // Compute and print factorial
+        BigInteger factorialResult = factorial(number);
+        System.out.println("Factorial of " + number + " is: " + factorialResult);
+    }
+}
