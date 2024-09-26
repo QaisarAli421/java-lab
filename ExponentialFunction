@@ -1,0 +1,34 @@
+
+import java.math.BigDecimal;
+import java.math.MathContext;
+import java.math.RoundingMode;
+import java.util.Scanner;
+
+public class Main {
+
+    // Method to compute f(x) = pi * e^x using BigDecimal
+    public static BigDecimal computeFunction(BigDecimal x) {
+        BigDecimal pi = new BigDecimal(Math.PI); // pi constant
+        BigDecimal e = new BigDecimal(Math.E);   // e constant
+
+        // Compute e^x using BigDecimal pow method
+        BigDecimal exp = e.pow(x.intValue(), MathContext.DECIMAL128);
+
+        // Multiply pi * e^x
+        return pi.multiply(exp, MathContext.DECIMAL128);
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        // Take input from the user as BigDecimal
+        System.out.print("Enter the value of x: ");
+        BigDecimal x = scanner.nextBigDecimal();
+
+        // Compute f(x) = pi * e^x
+        BigDecimal result = computeFunction(x);
+
+        // Print the result with desired precision
+        System.out.println("f(x) = pi * e^x for x = " + x + " is: " + result);
+    }
+}
