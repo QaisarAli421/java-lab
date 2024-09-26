@@ -1,0 +1,164 @@
+import java.util.Scanner;
+
+class BankAccount {
+    private static int accountNoCounter = 1000; // Starting point for unique account numbers
+
+    private int accountNo;
+    private String firstName;
+    private String lastName;
+    private String address;
+    private String city;
+    private String pinNo;
+    private String aadhar;
+    private String pan;
+    private double balance;
+
+    // Constructor
+    public BankAccount(String firstName, String lastName, String address, String city, String pinNo, String aadhar, String pan, double initialBalance) {
+        this.accountNo = generateUniqueAccountNo();
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.address = address;
+        this.city = city;
+        this.pinNo = pinNo;
+        this.aadhar = aadhar;
+        this.pan = pan;
+        this.balance = initialBalance;
+    }
+
+    // Method to generate unique account number
+    private int generateUniqueAccountNo() {
+        return accountNoCounter++;
+    }
+
+    // Method to deposit money
+    public void deposit(double amount) {
+        if (amount > 0) {
+            balance += amount;
+            System.out.println("Amount deposited: " + amount);
+        } else {
+            System.out.println("Invalid deposit amount.");
+        }
+    }
+
+    // Method to withdraw money
+    public void withdraw(double amount) {
+        if (amount > 0 && amount <= balance) {
+            balance -= amount;
+            System.out.println("Amount withdrawn: " + amount);
+        } else {
+            System.out.println("Insufficient balance or invalid amount.");
+        }
+    }
+
+    // Method to check balance
+    public void checkBalance() {
+        System.out.println("Current balance: " + balance);
+    }
+
+    // Method to transfer money
+    public void transfer(BankAccount recipient, double amount) {
+        if (amount > 0 && amount <= balance) {
+            this.withdraw(amount);
+            recipient.deposit(amount);
+            System.out.println("Amount transferred: " + amount);
+        } else {
+            System.out.println("Transfer failed. Insufficient balance or invalid amount.");
+        }
+    }
+
+    // Method to display account details
+    public void displayDetails() {
+        System.out.println("Account No: " + accountNo);
+        System.out.println("Name: " + firstName + " " + lastName);
+        System.out.println("Address: " + address + ", " + city + ", PIN: " + pinNo);
+        System.out.println("Aadhar: " + (aadhar != null ? aadhar : "N/A"));
+        System.out.println("PAN: " + (pan != null ? pan : "N/A"));
+        System.out.println("Balance: " + balance);
+    }
+}
+
+// Menu-driven program to test the BankAccount class
+public class BankApp {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        // Create two bank accounts for testing
+        BankAccount account1 = new BankAccount("John", "Doe", "123 Street", "CityA", "111111", "123456789012", "ABCDE1234F", 5000);
+        BankAccount account2 = new BankAccount("Jane", "Smith", "456 Avenue", "CityB", "222222", null, null, 3000);
+
+        while (true) {
+            System.out.println("\nBank Menu:");
+            System.out.println("1. Deposit");
+            System.out.println("2. Withdraw");
+            System.out.println("3. Check Balance");
+            System.out.println("4. Transfer Money");
+            System.out.println("5. Display Account Details");
+            System.out.println("6. Exit");
+            System.out.print("Enter your choice: ");
+            int choice = scanner.nextInt();
+
+            switch (choice) {
+                case 1:
+                    System.out.print("Enter account number (1 or 2): ");
+                    int accNum = scanner.nextInt();
+                    System.out.print("Enter amount to deposit: ");
+                    double depositAmount = scanner.nextDouble();
+                    if (accNum == 1) {
+                        account1.deposit(depositAmount);
+                    } else if (accNum == 2) {
+                        account2.deposit(depositAmount);
+                    } else {
+                        System.out.println("Invalid account number.");
+                    }
+                    break;
+                case 2:
+                    System.out.print("Enter account number (1 or 2): ");
+                    accNum = scanner.nextInt();
+                    System.out.print("Enter amount to withdraw: ");
+                    double withdrawAmount = scanner.nextDouble();
+                    if (accNum == 1) {
+                        account1.withdraw(withdrawAmount);
+                    } else if (accNum == 2) {
+                        account2.withdraw(withdrawAmount);
+                    } else {
+                        System.out.println("Invalid account number.");
+                    }
+                    break;
+                case 3:
+                    System.out.print("Enter account number (1 or 2): ");
+                    accNum = scanner.nextInt();
+                    if (accNum == 1) {
+                        account1.checkBalance();
+                    } else if (accNum == 2) {
+                        account2.checkBalance();
+                    } else {
+                        System.out.println("Invalid account number.");
+                    }
+                    break;
+                case 4:
+                    System.out.print("Enter amount to transfer from Account 1 to Account 2: ");
+                    double transferAmount = scanner.nextDouble();
+                    account1.transfer(account2, transferAmount);
+                    break;
+                case 5:
+                    System.out.print("Enter account number (1 or 2): ");
+                    accNum = scanner.nextInt();
+                    if (accNum == 1) {
+                        account1.displayDetails();
+                    } else if (accNum == 2) {
+                        account2.displayDetails();
+                    } else {
+                        System.out.println("Invalid account number.");
+                    }
+                    break;
+                case 6:
+                    System.out.println("Exiting the program.");
+                    scanner.close();
+                    return;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+            }
+        }
+    }
+}
