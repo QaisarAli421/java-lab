@@ -1,0 +1,43 @@
+class Student {
+    private String name;
+    private int age;
+    private String rollNumber;
+
+    // Static data member to count instances
+    private static int instanceCount = 0;
+
+    // Constructor to initialize student details and increment the instance count
+    public Student(String name, int age, String rollNumber) {
+        this.name = name;
+        this.age = age;
+        this.rollNumber = rollNumber;
+        instanceCount++;
+    }
+
+    // Method to display student details
+    public void displayStudentDetails() {
+        System.out.println("Name: " + name);
+        System.out.println("Age: " + age);
+        System.out.println("Roll Number: " + rollNumber);
+    }
+
+    // Static method to get the total number of instances created
+    public static int getInstanceCount() {
+        return instanceCount;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        // Creating instances of the Student class
+        Student student1 = new Student("John Doe", 20, "S123");
+        Student student2 = new Student("Jane Smith", 21, "S124");
+
+        // Display student details
+        student1.displayStudentDetails();
+        student2.displayStudentDetails();
+
+        // Print total number of instances
+        System.out.println("Total number of student instances: " + Student.getInstanceCount());
+    }
+}
