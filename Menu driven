@@ -1,0 +1,5 @@
+write a interactive menu driven program of Java that takes paragraph of text as input from the user and computes the following 
+(1). count the number of characters, words and lines 
+(2). Make the entire sentence in the sentence case 
+3. reverse the order of the words 
+4 also reverse the entire paragraph
